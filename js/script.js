@@ -24,8 +24,15 @@ class Calculator {
             this.expression.push('+');
             this.numberStr += '-';
         }
+        
 
-        this.string += number.toString();
+        if (this.expression.length > 2 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            this.string = this.string.split() + number.toString();
+            number = this.expression[this.expression.length - 1] + number;
+            this.expression.pop();
+        }
+        else this.string += number.toString();
+        
         document.getElementById("result_area").innerText = this.string;
 
         this.numberStr += number;
@@ -151,6 +158,34 @@ class Calculator {
         this.toClear = true;
         this.expression = [];
         this.numberStr = this.result;
+    }
+
+    appendDelete() {
+        if (this.numberStr != '') this.expression.push(this.numberStr);
+
+        let lastNum = '';
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            console.log(this.expression);
+            this.expression.pop();
+            this.string = this.string.substring(0, this.string.length - 3);
+        }
+        else {
+            lastNum = this.expression[this.expression.length - 1];
+            this.expression.pop();
+
+            console.log(lastNum.toString());
+            lastNum = lastNum.toString().substring(0, lastNum.toString().length - 1)
+
+            if (lastNum == '-') lastNum = '';
+            //this.numberStr = this.numberStr.substring(0, this.numberStr.length - 1);
+            this.string = this.string.substring(0, this.string.length - 1);
+            //this.expression.push(lastNum);
+        }
+
+        if (this.string.length == 0) this.string = '0';
+        
+        this.numberStr = lastNum;
+        document.getElementById("result_area").innerText = this.string;
     }
 
     clear() {

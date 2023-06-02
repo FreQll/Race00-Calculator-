@@ -20,7 +20,7 @@ body {
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-areas: 
-        "clear percent . plus"
+        "clear percent delete plus"
         "number_7 number_8 number_9 minus"
         "number_4 number_5 number_6 multiply_"
         "number_1 number_2 number_3 division"
@@ -46,6 +46,7 @@ body {
 #point { grid-area: point; }
 #percent { grid-area: percent; }
 #sign { grid-area: sign; }
+#delete { grid-area: delete; }
 
 .button {
     display: flex;
