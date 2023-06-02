@@ -24,7 +24,7 @@ body {
         "number_7 number_8 number_9 minus"
         "number_4 number_5 number_6 multiply_"
         "number_1 number_2 number_3 division"
-        "point number_0 . equal";
+        "point number_0 sign equal";
 }
 
 #number_0 { grid-area: number_0; }
@@ -45,6 +45,7 @@ body {
 #equal { grid-area: equal; }
 #point { grid-area: point; }
 #percent { grid-area: percent; }
+#sign { grid-area: sign; }
 
 .button {
     display: flex;

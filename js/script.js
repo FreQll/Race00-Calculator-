@@ -99,6 +99,39 @@ class Calculator {
         document.getElementById("result_area").innerText = this.string;
     }
 
+
+    appendSign() {
+        if (this.numberStr == '' || this.numberStr == 0) return;
+
+        console.log(this.string)
+        if (!this.string.includes('+') && !this.string.includes('-') && !this.string.includes('/') && !this.string.includes('*')) {
+            console.log(this.string)
+        
+            this.numberStr *= -1;
+            this.string = this.numberStr;
+        }
+        else if (this.numberStr < 0) {
+            this.numberStr *= -1;
+            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
+                this.string = this.string.toString().substring(0, this.string.length - 1);
+            }
+            this.string = this.string.toString().substring(0, this.string.length - 1);
+            this.string += ' + ' + this.numberStr;
+        }
+        else if (this.numberStr > 0) {
+            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
+                this.string = this.string.toString().substring(0, this.string.length - 1);
+            }
+            this.string = this.string.toString().substring(0, this.string.length - 1);
+            console.log(this.string)
+            this.string += '- ' + this.numberStr;
+            this.numberStr *= -1;
+        }
+
+        document.getElementById("result_area").innerText = this.string;
+        console.log(this.expression)
+    }
+
     appendEqual() {
         if (this.expression.length < 2) return; //проверка выражения на одно число
         
