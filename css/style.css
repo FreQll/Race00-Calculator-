@@ -19,14 +19,12 @@ body {
     display: grid;
     gap: 10px;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
     grid-template-areas: 
-        "clear . . ."
-        "number_7 number_8 number_9 plus"
-        "number_4 number_5 number_6 minus"
-        "number_1 number_2 number_3 multiply_"
-        "number_0 . . division"
-        ". . point equal";
+        "clear percent . plus"
+        "number_7 number_8 number_9 minus"
+        "number_4 number_5 number_6 multiply_"
+        "number_1 number_2 number_3 division"
+        "point number_0 . equal";
 }
 
 #number_0 { grid-area: number_0; }
@@ -46,6 +44,7 @@ body {
 #clear { grid-area: clear; }
 #equal { grid-area: equal; }
 #point { grid-area: point; }
+#percent { grid-area: percent; }
 
 .button {
     display: flex;
