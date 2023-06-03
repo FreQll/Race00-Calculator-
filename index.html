@@ -9,15 +9,17 @@
 <body>
     <main>
         <div class="main_div">
-            <div class="result_div">
-                <p id="expression_string"></p>
-                <p id="result_area"></p>
+            <div id="result_div">
+                <div id="result">
+                    <p id="expression_string"></p>
+                    <p id="result_area"></p>
+                </div>
             </div>
             <div class="buttons_div">
                 <div class="numbers_div">
                     <div onclick="calculator.clear()" id="clear" class="button funcs"><button>C</button></div>
                     <div onclick="calculator.appendSign()" id="sign" class="button funcs"><button>&#177;</button></div>
-                    <div onclick="calculator.clear()" id="percent" class="button funcs"><button>%</button></div>
+                    <div onclick="calculator.appendPercent()" id="percent" class="button funcs"><button>%</button></div>
                     <div onclick="calculator.appendDelete()" id="delete" class="button"><button>DEL</button></div>
                     <div onclick="calculator.appendNumber(0)" id="number_0" class="button zero"><button>0</button></div>
                     <div onclick="calculator.appendNumber(1)" id="number_1" class="button"><button>1</button></div>

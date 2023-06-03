@@ -9,6 +9,7 @@ class Calculator {
         this.toClear = false;
 
         document.getElementById("result_area").innerText = '0';
+        document.getElementById("expression_string").innerText = '';
     }
 
     appendNumber(number) {
@@ -17,6 +18,8 @@ class Calculator {
 
         if (this.string.length == 1 && this.string[0] == '0') this.string = '';
 
+        if (this.expression.length == 1 && this.expression[0] == '0') this.expression.pop();
+
         //if (this.numberStr[0] == '0' && !(this.string.includes('.'))) return; //игнорирование чисел типа 01
 
         if (this.expression[this.expression.length - 1] == '-') { //замена -num на + -num
@@ -24,7 +27,6 @@ class Calculator {
             this.expression.push('+');
             this.numberStr += '-';
         }
-        
 
         if (this.expression.length > 2 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
             this.string = this.string.split() + number.toString();
@@ -32,15 +34,21 @@ class Calculator {
             this.expression.pop();
         }
         else this.string += number.toString();
+
+        if (this.string.length > 13) {
+            document.getElementById("result_area").style.fontSize = '20px';
+        }
+        else document.getElementById("result_area").style.fontSize = '30px';
         
         document.getElementById("result_area").innerText = this.string;
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
 
         this.numberStr += number;
     }
 
     appendOperation(operator) {
         if (this.numberStr[this.numberStr.length - 1] == '.') this.return; //для случаев ввода чисел типа 1.
-        if (this.numberStr != '') this.expression.push(this.numberStr);
+        if (this.numberStr.toString() != '') this.expression.push(this.numberStr);
         this.numberStr = '';
 
         /*if (this.result != 0 && this.expression.length < 2) {
@@ -61,6 +69,8 @@ class Calculator {
         this.expression.push(operator);
 
         console.log(this.expression);
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     appendPoint() {
@@ -77,6 +87,8 @@ class Calculator {
         document.getElementById("result_area").innerText = this.string;
 
         console.log(this.expression);
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
 
     }
 
@@ -104,6 +116,7 @@ class Calculator {
         this.result = 0;
 
         document.getElementById("result_area").innerText = this.string;
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
 
@@ -137,6 +150,8 @@ class Calculator {
 
         document.getElementById("result_area").innerText = this.string;
         console.log(this.expression)
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     appendEqual() {
@@ -155,9 +170,15 @@ class Calculator {
         document.getElementById("expression_string").innerText = this.string + " =";
         this.updateResult();
         document.getElementById("result_area").innerText = this.result;
+
+        if (document.getElementById("expression_string").innerText.length > 13) document.getElementById("expression_string").style.fontSize = '20px';
+        else document.getElementById("expression_string").style.fontSize = '30px';
+
         this.toClear = true;
         this.expression = [];
         this.numberStr = this.result;
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     appendDelete() {
@@ -172,8 +193,8 @@ class Calculator {
         else {
             lastNum = this.expression[this.expression.length - 1];
             this.expression.pop();
+            if (this.expression.length == 0) this.expression.push('0');
 
-            console.log(lastNum.toString());
             lastNum = lastNum.toString().substring(0, lastNum.toString().length - 1)
 
             if (lastNum == '-') lastNum = '';
@@ -184,21 +205,29 @@ class Calculator {
 
         if (this.string.length == 0) this.string = '0';
         
+        if (this.string.length > 13) document.getElementById("result_area").style.fontSize = '20px';
+        else document.getElementById("result_area").style.fontSize = '30px';
+        
         this.numberStr = lastNum;
         document.getElementById("result_area").innerText = this.string;
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     clear() {
         this.expression = [];
         document.getElementById("result_area").innerText = '0';
 
-        if (this.string == "") document.getElementById("expression_string").innerText = ""; //очищение истории
+        if (this.string == "0") document.getElementById("expression_string").innerText = ""; //очищение истории
         else if (this.result != 0)
             document.getElementById("expression_string").innerText = document.getElementById("expression_string").textContent + ' ' + this.result;
+        
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
         
         this.result = 0;
         this.string = "0";
         this.numberStr = "0"
+        document.getElementById("result_area").style.fontSize = '30px';
     }
 
     updateResult() {
