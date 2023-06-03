@@ -10,11 +10,10 @@ body {
     background: linear-gradient(-45deg, rgba(35, 39, 44, 0.95), rgba(35, 39, 44, 0.9), rgba(35, 39, 44, 0.88));
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
-
 }
 
 ::-webkit-scrollbar {
-    width: 5px; /* Width of the scrollbar */
+    width: 5px; 
     background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -42,6 +41,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: end;
+
+    color: white;
+    font-size: 1.5em;
+    overflow: auto;
 }
 
 .buttons_div {
@@ -52,16 +55,15 @@ body {
 .numbers_div {
     display: grid;
     gap: 5px;
-    grid-template-columns: repeat(6, 60px);
+    grid-template-columns: repeat(5, 60px);
     grid-template-rows: repeat(6, 60px);
     grid-template-areas: 
-        ". . . MC plusM minusM showM"
-        "clear . exp factorial percent square_root delete"
-        "hex . sm exp2 lg ln division"
-        "dec mg km number_7 number_8 number_9 multiply_"
-        "bin kg sqSm number_4 number_5 number_6 minus"
-        ". t sqKm number_1 number_2 number_3 plus"
-        ". . ha sign number_0 point equal";
+        "clear factorial percent square_root delete"
+        "exp exp2 lg ln division"
+        "hex  number_7 number_8 number_9 multiply_"
+        "dec number_4 number_5 number_6 minus"
+        "bin number_1 number_2 number_3 plus"
+        "menu sign number_0 point equal";
 }
 
 #number_0 { grid-area: number_0; }
@@ -90,14 +92,7 @@ body {
 #exp2 { grid-area: exp2; }
 #lg { grid-area: lg; }
 #ln { grid-area: ln; }
-#lenghtSm { grid-area: sm; }
-#lenghtKm { grid-area: km; }
-#squareKm { grid-area: sqKm; }
-#squareSm { grid-area: sqSm; }
-#weightMg { grid-area: mg; }
-#weightKg { grid-area: kg; }
-#weightT { grid-area: t; }
-#hectare { grid-area: ha; }
+
 #hex { grid-area: hex; }
 #dec { grid-area: dec; }
 #bin { grid-area: bin; }
@@ -105,6 +100,11 @@ body {
 #plusM { grid-area: plusM; }
 #minusM { grid-area: minusM; }
 #MC { grid-area: MC; }
+#menu { grid-area: menu; }
+
+.metrics {
+    
+}
 
 button {
     width: 60px;
@@ -142,7 +142,7 @@ button:active {
 }
 
 .main_div {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -150,6 +150,7 @@ button:active {
     width: auto;
     padding: 30px 10px 20px 10px;
     border-radius: 25px;
+    position: relative;
 }
 
 .operator > button {
@@ -166,12 +167,6 @@ button:active {
 
 .funcs > button {
     background-color: rgb(77,81,93);
-}
-
-#result_div {
-    color: white;
-    font-size: 1.5em;
-    overflow: auto;
 }
 
 p {
@@ -195,8 +190,6 @@ p {
     justify-content: space-between;
 }
 
-/* memory div */
-
 #memory-div {
     position: absolute;
     background-color: #60718b;
@@ -215,3 +208,21 @@ p {
     opacity: 0.5;
     cursor: default;
 }
+
+.metrics-container {
+    position: absolute;
+    left: 34%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.metrics-container.show {
+    opacity: 1;
+  }
+
+.metrics-container > div > button {
+    margin-bottom: 5px;
+}
+
