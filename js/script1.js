@@ -330,6 +330,146 @@ class Calculator {
         
         this.expressionToString();
     }
+
+    ///////////LENGHT
+
+    lenghtSm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 100
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    squareSm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 100
+        res *= res;
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    lenghtKm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    squareKm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        res *= res;
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    hectare() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 10000
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    //////////WEIGHT
+
+    weightMg() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 1000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
+
+    weightKg() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
+
+    weightT() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
+
+    /////////PROGRAMMER 
+
+    hex() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (! parseInt(this.expression[this.expression.length - 1])) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
+        }
+
+        let num = parseInt(this.expression[this.expression.length - 1]);
+        let hex = num.toString(16);
+
+        this.expression.pop();
+        this.expression.push(hex);
+        this.expressionToString();
+    }
+
+    dec() {
+
+        let num = this.expression[this.expression.length - 1];
+        let dec = parseInt(num, 16);
+
+        this.expression.pop();
+        this.expression.push(dec.toString());
+        this.expressionToString();
+    }
+
+    bin() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (! parseInt(this.expression[this.expression.length - 1])) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
+        }
+
+        let num = parseInt(this.expression[this.expression.length - 1]);
+        let bin = num.toString(2);
+
+        this.expression.pop();
+        this.expression.push(bin);
+        this.expressionToString();
+    }
 }
 
 calculator = new Calculator();

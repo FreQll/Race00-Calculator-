@@ -282,6 +282,19 @@ class Calculator {
     exponentiation() {
 
     }
+
+    ///////////LENGHT
+
+    lenghtKm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
 }
 
 calculator = new Calculator();
