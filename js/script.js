@@ -1,14 +1,19 @@
 class Calculator {
-    operatorsArr = ['+', '-', '*', '/'];
+    operatorsArr = ['+', '-', '*', '/', '^'];
 
     constructor() {
         this.string = '0';
         this.expression = [0];
         this.result = 0;
         this.toClear = false;
+        this.memory = 0;
+
+        this.buttonM = document.getElementById('btnM');
+        this.buttonM.disabled = true;
 
         document.getElementById("result_area").innerText = '0';
         document.getElementById("expression_string").innerText = '';
+        document.getElementById("memory_area").innerText = '0';
     }
 
     appendNumber(number) {
@@ -17,19 +22,17 @@ class Calculator {
             this.expression = [];
         }
         this.toClear = false;
+        console.log(this.expression);
 
-
-
-        console.log(this.expression)
         if (this.expression.length == 1 && (this.expression[0] == '0')) this.expression.pop();
-
 
         if (this.expression.length > 0 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
             number = this.expression[this.expression.length - 1].toString() + number.toString();
             this.expression.pop();
         }
 
-        this.expression.push(number);
+        this.expression.push(number.toString());
+
         this.expressionToString()
     }
 
@@ -48,7 +51,7 @@ class Calculator {
         if (this.toClear) this.clear(); //очищение после предыдущего результата и вводом нового выражения
         this.toClear = false;
         
-        if (this.expression.length == 0) this.expression.push(this.result)
+        if (this.expression.length == 0) this.expression.push(this.result.toString())
         if (this.expression[this.expression.length - 1].toString().includes('.')) return;
 
         let number = '';
@@ -58,7 +61,7 @@ class Calculator {
         }
 
         document.getElementById("result_area").innerText = this.string;
-        this.expression.push(number);
+        this.expression.push(number.toString());
         this.expressionToString();
     }
 
@@ -83,7 +86,7 @@ class Calculator {
                 this.expression.pop();
                 this.expression.push('0');
                 this.expression.push('-')
-                this.expression.push(temp);
+                this.expression.push(temp.toString());
             }
         }
         else if (this.expression[this.expression.length - 2] == '-') {
@@ -97,6 +100,8 @@ class Calculator {
     }
 
     appendEqual() {
+        console.log(this.expression);
+        
         if (this.expression.length < 3) return; //проверка выражения на одно число
         
         if (this.expression[this.expression.length - 2] == '/') //деление на ноль
@@ -135,7 +140,7 @@ class Calculator {
             let newNum = lastNum.toString().substring(0, lastNum.length - 1);
 
             this.expression.pop();
-            if (newNum != '') this.expression.push(newNum);
+            if (newNum != '') this.expression.push(newNum.toString());
         }
 
         this.expressionToString();
@@ -155,11 +160,13 @@ class Calculator {
         this.string = "0";
         this.numberStr = "0"
         this.expression = [];
+        this.expression.push('0');
     }
 
     updateResult() {
         if (!(this.expression.includes('+') || this.expression.includes('-')
-            || (this.expression.includes('*') || this.expression.includes('/')))) return;
+            || this.expression.includes('*') || this.expression.includes('/')
+            || this.expression.includes('^'))) return;
         
         let array = this.expression;
         let tempRes = parseFloat(array[0]);
@@ -169,6 +176,11 @@ class Calculator {
         while (this.expression.length != 1) {
             let indDiv = this.expression.indexOf("/");
             let indMult = this.expression.indexOf("*");
+
+            if (this.expression.indexOf("^") != -1) {
+                this.calculate("^");
+                console.log(this.expression);
+            }
 
             if ((indDiv < indMult && indDiv != -1) || (indDiv != -1 && indMult == -1)) {
                 this.calculate("/");
@@ -222,6 +234,9 @@ class Calculator {
             case ("/"): 
                 res = parseFloat(this.expression[startInd]) / parseFloat(this.expression[endInd]);
                 break;
+            case ("^"):
+                res = parseFloat(this.expression[startInd]) ** parseFloat(this.expression[endInd]);
+                break;
         }
         this.expression.splice(startInd, endInd - startInd + 1, res);
     }
@@ -234,12 +249,16 @@ class Calculator {
         }
         document.getElementById("result_area").innerText = this.string;
 
-        if (this.string.length > 18) {
+        if (this.string.length > 13) {
             document.getElementById("result_area").style.fontSize = '20px';
         }
         else document.getElementById("result_area").style.fontSize = '30px';
 
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
+    }
+
+    showMessage(message) {
+        document.getElementById("result_area").innerText = message;
     }
 
     //////////////CREATIVE
@@ -261,10 +280,11 @@ class Calculator {
         }
         
         this.expression.pop();
-        this.expression.push(res);
+        this.expression.push(res.toString());
 
         this.expressionToString();
     }
+
 
     squareRoot() {
         if (this.expression[this.expression.length - 1] <= 0
@@ -273,17 +293,73 @@ class Calculator {
         let res = Math.sqrt(this.expression[this.expression.length - 1]);
 
         this.expression.pop();
-        this.expression.push(res);
+        this.expression.push(res.toString());
         
-        console.log(this.expression);
         this.expressionToString();
     }
 
     exponentiation() {
+        this.expression.push("^");
+        this.expressionToString();
+        this.toClear = false;
+    }
 
+    exponentiation2() {
+        let res = this.expression[this.expression.length - 1] ** 2;
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+        this.toClear = false;
+    }
+
+    lg() {
+        if (this.expression[this.expression.length - 1] <= 0
+        || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = Math.log10(this.expression[this.expression.length - 1]);
+
+        this.expression.pop();
+        this.expression.push(res.toString());
+        
+        this.expressionToString();
+    }
+
+    ln() {
+        if (this.expression[this.expression.length - 1] <= 0
+        || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = Math.log(this.expression[this.expression.length - 1]);
+
+        this.expression.pop();
+        this.expression.push(res.toString());
+        
+        this.expressionToString();
     }
 
     ///////////LENGHT
+
+    lenghtSm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 100
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    squareSm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 100
+        res *= res;
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
 
     lenghtKm() {
         if (this.expression[this.expression.length - 1] <= 0
@@ -292,8 +368,145 @@ class Calculator {
         let res = this.expression[this.expression.length - 1] / 1000
         
         this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    squareKm() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        res *= res;
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    hectare() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 10000
+        
+        this.expression.pop();
+        this.expression.push(res.toString());
+        this.expressionToString();
+    }
+
+    //////////WEIGHT
+
+    weightMg() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] * 1000
+        
+        this.expression.pop();
         this.expression.push(res);
         this.expressionToString();
+    }
+
+    weightKg() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
+
+    weightT() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = this.expression[this.expression.length - 1] / 1000000
+        
+        this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
+    }
+
+    /////////PROGRAMMER 
+
+    hex() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (! parseInt(this.expression[this.expression.length - 1])) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
+        }
+
+        let num = parseInt(this.expression[this.expression.length - 1]);
+        let hex = num.toString(16);
+
+        this.expression.pop();
+        this.expression.push(hex);
+        this.expressionToString();
+    }
+
+    dec() {
+
+        let num = this.expression[this.expression.length - 1];
+        let dec = parseInt(num, 16);
+
+        this.expression.pop();
+        this.expression.push(dec.toString());
+        this.expressionToString();
+    }
+
+    bin() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (! parseInt(this.expression[this.expression.length - 1])) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
+        }
+
+        let num = parseInt(this.expression[this.expression.length - 1]);
+        let bin = num.toString(2);
+
+        this.expression.pop();
+        this.expression.push(bin);
+        this.expressionToString();
+    }
+
+    ///////MEMORY   
+
+    showM() {
+        let container = document.getElementById('memory-div');
+        if (container.style.display == 'none')
+            container.style.display = 'block';
+        else container.style.display = 'none';
+    }
+    
+    plusM() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        this.buttonM.disabled = false;
+        this.memory += parseFloat(this.expression[this.expression.length - 1]);
+        document.getElementById("memory_area").innerText = this.memory;
+    }
+
+    minusM() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        this.buttonM.disabled = false;
+        this.memory -= parseFloat(this.expression[this.expression.length - 1]);
+        document.getElementById("memory_area").innerText = this.memory;
+    }
+
+    MC() {
+        this.memory = 0;
+        document.getElementById("memory_area").innerText = this.memory;
+        this.buttonM.disabled = true;
+        let container = document.getElementById('memory-div');
+        container.style.display = 'none';
     }
 }
 

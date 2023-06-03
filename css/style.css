@@ -56,8 +56,9 @@ body {
     display: grid;
     gap: 5px;
     grid-template-columns: repeat(5, 60px);
-    grid-template-rows: repeat(6, 60px);
+    grid-template-rows: repeat(7, 60px);
     grid-template-areas: 
+        "MC MR plusM minusM showM"
         "clear factorial percent square_root delete"
         "exp exp2 lg ln division"
         "hex  number_7 number_8 number_9 multiply_"
@@ -100,6 +101,7 @@ body {
 #plusM { grid-area: plusM; }
 #minusM { grid-area: minusM; }
 #MC { grid-area: MC; }
+#MR { grid-area: MR; }
 #menu { grid-area: menu; }
 
 .metrics {
@@ -204,14 +206,24 @@ p {
     margin: 20px;
 }
 
-#btnM:disabled {
+button:disabled {
     opacity: 0.5;
     cursor: default;
 }
 
+#metrics-div {
+    position: absolute;
+    width: 500px;
+    top: 50%;
+}
+
+#metrics-div1 {
+    position: relative;
+}
+
 .metrics-container {
     position: absolute;
-    left: 34%;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     opacity: 0;

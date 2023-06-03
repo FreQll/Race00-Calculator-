@@ -83,32 +83,37 @@
                     <div onclick="calculator.plusM()" id="plusM" class="button funcs"><button>M+</button></div>
                     <div onclick="calculator.minusM()" id="minusM" class="button funcs"><button>M-</button></div>
                     <div onclick="calculator.MC()" id="MC" class="button funcs"><button>MC</button></div>
+                    <div onclick="calculator.MR()" id="MR" class="button funcs"><button id="btnMR" disabled>MR</button></div>
                 </div>
             </div>
         </div>
-
-        <div class="metrics-container" id="metrics">
-            <div onclick="calculator.hectare()" id="hectare" class="button funcs metrics"><button>ha</button></div>
-            <div onclick="calculator.weightMg()" id="weightMg" class="button funcs metrics"><button>mg</button></div>
-            <div onclick="calculator.weightKg()" id="weightKg" class="button funcs metrics"><button>kg</button></div>
-            <div onclick="calculator.weightT()" id="weightT" class="button funcs metrics"><button>t</button></div>
-
-            <div onclick="calculator.lenghtSm()" id="lenghtSm" class="button funcs metrics"><button>sm</button></div>
-            <div onclick="calculator.lenghtKm()" id="lenghtKm" class="button funcs metrics"><button>km</button></div>
-            <div onclick="calculator.squareSm()" id="squareSm" class="button funcs metrics"><button>
-                <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                    <text x="0" y="15" font-size="14" fill="white">sm</text>
-                    <text x="18" y="7" font-size="8" fill="white">2</text>
-                    </svg>
-            </button></div>
-            <div onclick="calculator.squareKm()" id="squareKm" class="button funcs metrics"><button>
-                <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
-                    <text x="0" y="15" font-size="14" fill="white">km</text>
-                    <text x="18" y="7" font-size="8" fill="white">2</text>
-                    </svg>
-            </button></div>
-        </div>
     </main>
+
+    <div id="metrics-div">
+        <div id="metrics-div1">
+            <div class="metrics-container" id="metrics">
+                <div onclick="calculator.hectare()" id="hectare" class="button funcs metrics"><button>ha</button></div>
+                <div onclick="calculator.weightMg()" id="weightMg" class="button funcs metrics"><button>mg</button></div>
+                <div onclick="calculator.weightKg()" id="weightKg" class="button funcs metrics"><button>kg</button></div>
+                <div onclick="calculator.weightT()" id="weightT" class="button funcs metrics"><button>t</button></div>
+
+                <div onclick="calculator.lenghtSm()" id="lenghtSm" class="button funcs metrics"><button>sm</button></div>
+                <div onclick="calculator.lenghtKm()" id="lenghtKm" class="button funcs metrics"><button>km</button></div>
+                <div onclick="calculator.squareSm()" id="squareSm" class="button funcs metrics"><button>
+                    <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                        <text x="0" y="15" font-size="14" fill="white">sm</text>
+                        <text x="18" y="7" font-size="8" fill="white">2</text>
+                        </svg>
+                </button></div>
+                <div onclick="calculator.squareKm()" id="squareKm" class="button funcs metrics"><button>
+                    <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                        <text x="0" y="15" font-size="14" fill="white">km</text>
+                        <text x="18" y="7" font-size="8" fill="white">2</text>
+                        </svg>
+                </button></div>
+            </div>
+        </div>
+    </div>
     <div id="memory-div" style="display: none;"> 
         <div id="output_memory-div">
             <p id="memory_area"></p>

@@ -9,7 +9,8 @@ class Calculator {
         this.memory = 0;
 
         this.buttonM = document.getElementById('btnM');
-        this.buttonM.disabled = true;
+        this.buttonMR = document.getElementById('btnMR');
+
         this.menuOpen = false;
 
         document.getElementById("result_area").innerText = '0';
@@ -490,6 +491,8 @@ class Calculator {
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
         this.buttonM.disabled = false;
+        this.buttonMR.disabled = false;
+
         this.memory += parseFloat(this.expression[this.expression.length - 1]);
         document.getElementById("memory_area").innerText = this.memory;
     }
@@ -498,6 +501,8 @@ class Calculator {
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
         this.buttonM.disabled = false;
+        this.buttonMR.disabled = false;
+
         this.memory -= parseFloat(this.expression[this.expression.length - 1]);
         document.getElementById("memory_area").innerText = this.memory;
     }
@@ -505,9 +510,28 @@ class Calculator {
     MC() {
         this.memory = 0;
         document.getElementById("memory_area").innerText = this.memory;
+
         this.buttonM.disabled = true;
+        this.buttonMR.disabled = true;
+
         let container = document.getElementById('memory-div');
         container.style.display = 'none';
+    }
+
+    MR() {
+        if (this.memory == '0') return;
+
+        let memoryVal = this.memory;
+
+        this.expression.pop();
+        if (parseFloat(memoryVal) < 0) {
+            if (this.expression.length == 0) this.expression.push('0');
+            this.expression.push('-');
+            memoryVal *= -1;
+        }
+
+        this.expression.push(memoryVal);
+        this.expressionToString();
     }
 
     openMetrics() {
