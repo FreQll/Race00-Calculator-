@@ -155,11 +155,12 @@ class Calculator {
     }
 
     appendEqual() {
+        console.log(this.expression)
         if (this.expression.length < 2) return; //проверка выражения на одно число
         
-        if (this.numberStr == '') return; //проверка на выражение типа 5/
+        if (this.numberStr == '' && this.expression.length < 3) return; //проверка на выражение типа 5/
         
-        this.expression.push(this.numberStr);
+        if (this.numberStr != '') this.expression.push(this.numberStr);
         
         if (this.expression[this.expression.length - 2] == '/') //деление на ноль
             if (this.expression[this.expression.length - 1] == 0) {
@@ -222,12 +223,12 @@ class Calculator {
         else if (this.result != 0)
             document.getElementById("expression_string").innerText = document.getElementById("expression_string").textContent + ' ' + this.result;
         
+        document.getElementById("result_area").style.fontSize = '30px';
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
         
         this.result = 0;
         this.string = "0";
         this.numberStr = "0"
-        document.getElementById("result_area").style.fontSize = '30px';
     }
 
     updateResult() {
