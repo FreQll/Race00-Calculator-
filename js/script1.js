@@ -6,9 +6,14 @@ class Calculator {
         this.expression = [0];
         this.result = 0;
         this.toClear = false;
+        this.memory = 0;
+
+        this.buttonM = document.getElementById('btnM');
+        this.buttonM.disabled = true;
 
         document.getElementById("result_area").innerText = '0';
         document.getElementById("expression_string").innerText = '';
+        document.getElementById("memory_area").innerText = '0';
     }
 
     appendNumber(number) {
@@ -469,6 +474,37 @@ class Calculator {
         this.expression.pop();
         this.expression.push(bin);
         this.expressionToString();
+    }
+
+    ///////MEMORY   
+
+    showM() {
+        let container = document.getElementById('memory-div');
+        if (container.style.display == 'none')
+            container.style.display = 'block';
+        else container.style.display = 'none';
+    }
+    
+    plusM() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        this.buttonM.disabled = false;
+        this.memory += parseFloat(this.expression[this.expression.length - 1]);
+        document.getElementById("memory_area").innerText = this.memory;
+    }
+
+    minusM() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        this.buttonM.disabled = false;
+        this.memory -= parseFloat(this.expression[this.expression.length - 1]);
+        document.getElementById("memory_area").innerText = this.memory;
+    }
+
+    MC() {
+        this.memory = 0;
+        document.getElementById("memory_area").innerText = this.memory;
+        this.buttonM.disabled = true;
     }
 }
 

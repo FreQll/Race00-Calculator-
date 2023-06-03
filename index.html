@@ -72,10 +72,19 @@
                     <div onclick="calculator.hex()" id="hex" class="button funcs"><button>HEX</button></div>
                     <div onclick="calculator.dec()" id="dec" class="button funcs"><button>DEC</button></div>
                     <div onclick="calculator.bin()" id="bin" class="button funcs"><button>BIN</button></div>
+                    <div onclick="calculator.showM()" id="showM" class="button funcs"><button id="btnM" disabled>M↓</button></div>
+                    <div onclick="calculator.plusM()" id="plusM" class="button funcs"><button>M+</button></div>
+                    <div onclick="calculator.minusM()" id="minusM" class="button funcs"><button>M-</button></div>
+                    <div onclick="calculator.MC()" id="MC" class="button funcs"><button>MC</button></div>
                 </div>
             </div>
         </div>
     </main>
+    <div id="memory-div" style="display: none;"> 
+        <div id="output_memory-div">
+            <p id="memory_area"></p>
+        </div>
+    </div>
     
     <script src="js/script1.js"></script>
 </body>
