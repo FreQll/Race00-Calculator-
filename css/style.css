@@ -46,7 +46,7 @@ body {
     grid-template-columns: repeat(4, 60px);
     grid-template-rows: repeat(4, 1fr);
     grid-template-areas: 
-        ". . . ."
+        "factorial squareRoot exp ."
         "clear percent delete division"
         "number_7 number_8 number_9 multiply_"
         "number_4 number_5 number_6 minus"
@@ -74,6 +74,9 @@ body {
 #percent {grid-area: percent;}
 #sign {grid-area: sign;}
 #delete { grid-area: delete; }
+#factorial { grid-area: factorial; }
+#squareRoot { grid-area: squareRoot; }
+#exp { grid-area: exp; }
 
 button {
     width: 60px;

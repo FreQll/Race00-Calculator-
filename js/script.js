@@ -44,6 +44,7 @@ class Calculator {
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
 
         this.numberStr += number;
+        //console.log()
     }
 
     appendOperation(operator) {
@@ -295,6 +296,44 @@ class Calculator {
                 break;
         }
         this.expression.splice(startInd, endInd - startInd + 1, res);
+    }
+
+    expressionToString() {
+        this.string = '';
+        for (let i = 0; i < this.expression.length; i++) {
+            const element = this.expression[i];
+
+            if (parseFloat(this.expression[i + 1]) < 0) this.string += ' - ';
+            else if (parseFloat(element) < 0) {
+                let num = parseFloat(element) * (-1);
+                this.string += num.toString;
+            }
+            else this.string += element;
+        }
+        document.getElementById("result_area").innerText = this.string;
+
+    }
+
+    //////////////CREATIVE
+
+    factorial() {
+        if (this.numberStr == '' || parseFloat(this.numberStr) < 0) return;
+        this.expression.push(this.numberStr);
+
+        let res = 1;
+
+        for (let i = 1; i <= parseFloat(this.numberStr); i++) {
+            res *= i;
+        }
+
+        this.numberStr = res;
+
+        this.expression.pop();
+        this.expression.push(res);
+
+        console.log(this.expression);
+        this.expressionToString();
+        this.expression.pop();
     }
 
 }
