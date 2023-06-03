@@ -6,6 +6,7 @@ class Calculator {
         this.expression = [0];
         this.result = 0;
         this.toClear = false;
+        this.menuOpen = false;
 
         document.getElementById("result_area").innerText = '0';
         document.getElementById("expression_string").innerText = '';
@@ -469,6 +470,26 @@ class Calculator {
         this.expression.pop();
         this.expression.push(bin);
         this.expressionToString();
+    }
+
+    openMetrics() {
+        let metrics_div = document.getElementById("metrics");
+        let buttons = document.querySelectorAll(".metrics");
+
+        if (!this.menuOpen) {
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.visibility = "visible";
+            }
+            this.menuOpen = true;
+            metrics_div.classList.add('show');
+        }
+        else {
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.visibility = "hidden";
+            }
+            this.menuOpen = false;
+            metrics_div.classList.remove('show');
+        }
     }
 }
 

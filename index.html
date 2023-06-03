@@ -40,6 +40,11 @@
                             <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
                         </svg>
                     </button></div>
+                    <div onclick="calculator.openMetrics()" id="menu" class="button operator"><button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                    </button></div>
                     <div onclick="calculator.appendNumber(0)" id="number_0" class="button zero"><button>0</button></div>
                     <div onclick="calculator.appendNumber(1)" id="number_1" class="button"><button>1</button></div>
                     <div onclick="calculator.appendNumber(2)" id="number_2" class="button"><button>2</button></div>
@@ -56,24 +61,48 @@
                     <div onclick="calculator.appendOperation('-')" id="minus" class="button operator"><button>-</button></div>
                     <div onclick="calculator.appendEqual('=')" id="equal" class="button operator"><button>＝</button></div>
                     <div onclick="calculator.appendPoint()" id="point" class="button funcs"><button>.</button></div>
-                    <div onclick="calculator.factorial()" id="factorial" class="button funcs"><button>!</button></div>
-                    <div onclick="calculator.exponentiation()" id="exp" class="button funcs"><button>x^y</button></div>
-                    <div onclick="calculator.exponentiation2()" id="exp2" class="button funcs"><button>x^2</button></div>
+                    <div onclick="calculator.exponentiation()" id="exp" class="button funcs"><button>
+                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                            <text x="5" y="15" font-size="14" fill="white">x</text>
+                            <text x="12" y="7" font-size="8" fill="white">y</text>
+                        </svg>
+                    </button></div>
+                    <div onclick="calculator.exponentiation2()" id="exp2" class="button funcs"><button>
+                        <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                            <text x="5" y="15" font-size="14" fill="white">x</text>
+                            <text x="12" y="7" font-size="8" fill="white">2</text>
+                        </svg>
+                    </button></div>
                     <div onclick="calculator.lg()" id="lg" class="button funcs"><button>lg</button></div>
                     <div onclick="calculator.ln()" id="ln" class="button funcs"><button>ln</button></div>
-                    <div onclick="calculator.lenghtSm()" id="lenghtSm" class="button funcs"><button>sm</button></div>
-                    <div onclick="calculator.lenghtKm()" id="lenghtKm" class="button funcs"><button>km</button></div>
-                    <div onclick="calculator.squareSm()" id="squareSm" class="button funcs"><button>sm^2</button></div>
-                    <div onclick="calculator.squareKm()" id="squareKm" class="button funcs"><button>km^2</button></div>
-                    <div onclick="calculator.hectare()" id="hectare" class="button funcs"><button>ha</button></div>
-                    <div onclick="calculator.weightMg()" id="weightMg" class="button funcs"><button>mg</button></div>
-                    <div onclick="calculator.weightKg()" id="weightKg" class="button funcs"><button>kg</button></div>
-                    <div onclick="calculator.weightT()" id="weightT" class="button funcs"><button>t</button></div>
+                    
                     <div onclick="calculator.hex()" id="hex" class="button funcs"><button>HEX</button></div>
                     <div onclick="calculator.dec()" id="dec" class="button funcs"><button>DEC</button></div>
                     <div onclick="calculator.bin()" id="bin" class="button funcs"><button>BIN</button></div>
                 </div>
             </div>
+        </div>
+
+        <div class="metrics-container" id="metrics">
+            <div onclick="calculator.hectare()" id="hectare" class="button funcs metrics"><button>ha</button></div>
+            <div onclick="calculator.weightMg()" id="weightMg" class="button funcs metrics"><button>mg</button></div>
+            <div onclick="calculator.weightKg()" id="weightKg" class="button funcs metrics"><button>kg</button></div>
+            <div onclick="calculator.weightT()" id="weightT" class="button funcs metrics"><button>t</button></div>
+
+            <div onclick="calculator.lenghtSm()" id="lenghtSm" class="button funcs metrics"><button>sm</button></div>
+            <div onclick="calculator.lenghtKm()" id="lenghtKm" class="button funcs metrics"><button>km</button></div>
+            <div onclick="calculator.squareSm()" id="squareSm" class="button funcs metrics"><button>
+                <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <text x="0" y="15" font-size="14" fill="white">sm</text>
+                    <text x="18" y="7" font-size="8" fill="white">2</text>
+                    </svg>
+            </button></div>
+            <div onclick="calculator.squareKm()" id="squareKm" class="button funcs metrics"><button>
+                <svg width="30" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+                    <text x="0" y="15" font-size="14" fill="white">km</text>
+                    <text x="18" y="7" font-size="8" fill="white">2</text>
+                    </svg>
+            </button></div>
         </div>
     </main>
     
