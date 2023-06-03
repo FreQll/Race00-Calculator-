@@ -15,8 +15,11 @@
             </div>
             <div class="buttons_div">
                 <div class="numbers_div">
-                    <div onclick="calculator.clear()" id="clear" class="button"><button>CLEAR</button></div>
-                    <div onclick="calculator.appendNumber(0)" id="number_0" class="button"><button>0</button></div>
+                    <div onclick="calculator.clear()" id="clear" class="button funcs"><button>C</button></div>
+                    <div onclick="calculator.appendSign()" id="sign" class="button funcs"><button>&#177;</button></div>
+                    <div onclick="calculator.clear()" id="percent" class="button funcs"><button>%</button></div>
+                    <div onclick="calculator.appendDelete()" id="delete" class="button"><button>DEL</button></div>
+                    <div onclick="calculator.appendNumber(0)" id="number_0" class="button zero"><button>0</button></div>
                     <div onclick="calculator.appendNumber(1)" id="number_1" class="button"><button>1</button></div>
                     <div onclick="calculator.appendNumber(2)" id="number_2" class="button"><button>2</button></div>
                     <div onclick="calculator.appendNumber(3)" id="number_3" class="button"><button>3</button></div>
@@ -26,12 +29,12 @@
                     <div onclick="calculator.appendNumber(7)" id="number_7" class="button"><button>7</button></div>
                     <div onclick="calculator.appendNumber(8)" id="number_8" class="button"><button>8</button></div>
                     <div onclick="calculator.appendNumber(9)" id="number_9" class="button"><button>9</button></div>
-                    <div onclick="calculator.appendOperation('+')" id="plus" class="button"><button>+</button></div>
-                    <div onclick="calculator.appendOperation('*')" id="multiply" class="button"><button>*</button></div>
-                    <div onclick="calculator.appendOperation('/')" id="division" class="button"><button>/</button></div>
-                    <div onclick="calculator.appendOperation('-')" id="minus" class="button"><button>-</button></div>
-                    <div onclick="calculator.appendEqual('=')" id="equal" class="button"><button>=</button></div>
-                    <div onclick="calculator.appendPoint()" id="point" class="button"><button>.</button></div>
+                    <div onclick="calculator.appendOperation('+')" id="plus" class="button operator"><button>﹢</button></div>
+                    <div onclick="calculator.appendOperation('*')" id="multiply" class="button operator"><button>×</button></div>
+                    <div onclick="calculator.appendOperation('/')" id="division" class="button operator"><button>÷</button></div>
+                    <div onclick="calculator.appendOperation('-')" id="minus" class="button operator"><button>-</button></div>
+                    <div onclick="calculator.appendEqual('=')" id="equal" class="button operator"><button>＝</button></div>
+                    <div onclick="calculator.appendPoint()" id="point" class="button funcs"><button>.</button></div>
                 </div>
             </div>
         </div>

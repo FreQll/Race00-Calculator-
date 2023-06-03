@@ -2,9 +2,9 @@ class Calculator {
     operatorsArr = ['+', '-', '*', '/'];
 
     constructor() {
-        this.string = '';
+        this.string = '0';
         this.expression = [];
-        this.numberStr = '';
+        this.numberStr = '0';
         this.result = 0;
         this.toClear = false;
 
@@ -15,6 +15,8 @@ class Calculator {
         if (this.toClear) this.clear(); //очищение после предыдущего результата и вводом нового выражения
         this.toClear = false;
 
+        if (this.string.length == 1 && this.string[0] == '0') this.string = '';
+
         //if (this.numberStr[0] == '0' && !(this.string.includes('.'))) return; //игнорирование чисел типа 01
 
         if (this.expression[this.expression.length - 1] == '-') { //замена -num на + -num
@@ -22,8 +24,15 @@ class Calculator {
             this.expression.push('+');
             this.numberStr += '-';
         }
+        
 
-        this.string += number;
+        if (this.expression.length > 2 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            this.string = this.string.split() + number.toString();
+            number = this.expression[this.expression.length - 1] + number;
+            this.expression.pop();
+        }
+        else this.string += number.toString();
+        
         document.getElementById("result_area").innerText = this.string;
 
         this.numberStr += number;
@@ -34,10 +43,10 @@ class Calculator {
         if (this.numberStr != '') this.expression.push(this.numberStr);
         this.numberStr = '';
 
-        if (this.result != 0) {
+        /*if (this.result != 0 && this.expression.length < 2) {
             document.getElementById("expression_string").innerText = document.getElementById("expression_string").textContent + ' ' + this.result;
             this.expression.push(this.result);
-        }
+        }*/
         this.toClear = false;
 
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) { //если оператор уже введен
@@ -57,8 +66,7 @@ class Calculator {
     appendPoint() {
         if (this.toClear) this.clear(); //очищение после предыдущего результата и вводом нового выражения
         this.toClear = false;
-        console.log("num: "+this.numberStr);
-        if (this.numberStr.includes('.')) return;
+        if (this.numberStr.toString().includes('.')) return;
 
         if (this.numberStr == '') {
             this.string += '0';
@@ -72,14 +80,71 @@ class Calculator {
 
     }
 
+    appendPercent() {
+        if (this.numberStr != '') this.expression.push(this.numberStr);
+
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let num = this.numberStr.toString();
+        if (num[0] == '-') num = num.substring(1, num.length);
+        let res = num / 100;
+
+        this.numberStr = this.numberStr.toString();
+        if (this.numberStr[0] == '-') this.numberStr = '-' + res;
+        else this.numberStr = res;
+
+        this.expression.pop();
+
+        this.string = this.string.toString();
+        while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
+            this.string = this.string.toString().substring(0, this.string.length - 1);
+        }
+
+        this.string += ' ' + res;
+        this.result = 0;
+
+        document.getElementById("result_area").innerText = this.string;
+    }
+
+
+    appendSign() {
+        if (this.numberStr == '' || this.numberStr == 0) return;
+
+        console.log(this.string)
+        if (!this.string.includes('+') && !this.string.includes('-') && !this.string.includes('/') && !this.string.includes('*')) {
+            console.log(this.string)
+        
+            this.numberStr *= -1;
+            this.string = this.numberStr;
+        }
+        else if (this.numberStr < 0) {
+            this.numberStr *= -1;
+            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
+                this.string = this.string.toString().substring(0, this.string.length - 1);
+            }
+            this.string = this.string.toString().substring(0, this.string.length - 1);
+            this.string += ' + ' + this.numberStr;
+        }
+        else if (this.numberStr > 0) {
+            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
+                this.string = this.string.toString().substring(0, this.string.length - 1);
+            }
+            this.string = this.string.toString().substring(0, this.string.length - 1);
+            console.log(this.string)
+            this.string += '- ' + this.numberStr;
+            this.numberStr *= -1;
+        }
+
+        document.getElementById("result_area").innerText = this.string;
+        console.log(this.expression)
+    }
+
     appendEqual() {
         if (this.expression.length < 2) return; //проверка выражения на одно число
         
         if (this.numberStr == '') return; //проверка на выражение типа 5/
         
         this.expression.push(this.numberStr);
-
-        console.log("expression: " + this.expression);
         
         if (this.expression[this.expression.length - 2] == '/') //деление на ноль
             if (this.expression[this.expression.length - 1] == 0) {
@@ -92,6 +157,35 @@ class Calculator {
         document.getElementById("result_area").innerText = this.result;
         this.toClear = true;
         this.expression = [];
+        this.numberStr = this.result;
+    }
+
+    appendDelete() {
+        if (this.numberStr != '') this.expression.push(this.numberStr);
+
+        let lastNum = '';
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            console.log(this.expression);
+            this.expression.pop();
+            this.string = this.string.substring(0, this.string.length - 3);
+        }
+        else {
+            lastNum = this.expression[this.expression.length - 1];
+            this.expression.pop();
+
+            console.log(lastNum.toString());
+            lastNum = lastNum.toString().substring(0, lastNum.toString().length - 1)
+
+            if (lastNum == '-') lastNum = '';
+            //this.numberStr = this.numberStr.substring(0, this.numberStr.length - 1);
+            this.string = this.string.substring(0, this.string.length - 1);
+            //this.expression.push(lastNum);
+        }
+
+        if (this.string.length == 0) this.string = '0';
+        
+        this.numberStr = lastNum;
+        document.getElementById("result_area").innerText = this.string;
     }
 
     clear() {
@@ -103,8 +197,8 @@ class Calculator {
             document.getElementById("expression_string").innerText = document.getElementById("expression_string").textContent + ' ' + this.result;
         
         this.result = 0;
-        this.string = "";
-        this.numberStr = ""
+        this.string = "0";
+        this.numberStr = "0"
     }
 
     updateResult() {
@@ -143,7 +237,7 @@ class Calculator {
 
 
         this.result = tempRes;
-        this.string = tempRes;
+        this.string = tempRes.toString();
         this.expression = [];
         this.numberStr = "";
         this.expression.push(tempRes);
@@ -176,4 +270,3 @@ class Calculator {
 }
 
 calculator = new Calculator();
-
