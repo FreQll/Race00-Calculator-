@@ -234,7 +234,7 @@ class Calculator {
         }
         document.getElementById("result_area").innerText = this.string;
 
-        if (this.string.length > 13) {
+        if (this.string.length > 18) {
             document.getElementById("result_area").style.fontSize = '20px';
         }
         else document.getElementById("result_area").style.fontSize = '30px';

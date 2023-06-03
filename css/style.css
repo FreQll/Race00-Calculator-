@@ -35,9 +35,9 @@ body {
 
 #result_div {
     width: 100%;
-    height: 100px;
-    padding: 10px;
-    margin-right: 10px;
+    height: 120px;
+    margin: 15px;
+    padding-right: 10px;
 
     display: flex;
     flex-direction: column;
@@ -50,20 +50,17 @@ body {
 }
 
 .numbers_div {
-    height: 300px;
-    max-height: 300px;
-    margin-top: 15px;
-    width: 100%;
     display: grid;
     gap: 5px;
     grid-template-columns: repeat(5, 60px);
-    grid-template-rows: repeat(4, 60px);
+    grid-template-rows: repeat(5, 60px);
     grid-template-areas: 
-        "clear factorial percent delete division"
-        "square_root number_7 number_8 number_9 multiply_"
+        "clear factorial percent square_root delete"
+        "exp2 . . . division"
+        "exp number_7 number_8 number_9 multiply_"
         ". number_4 number_5 number_6 minus"
-        ". number_1 number_2 number_3 plus"
-        ". sign number_0 point equal";
+        "lg number_1 number_2 number_3 plus"
+        "ln sign number_0 point equal";
 }
 
 #number_0 { grid-area: number_0; }
@@ -88,6 +85,10 @@ body {
 #delete { grid-area: delete; }
 #factorial { grid-area: factorial; }
 #square_root { grid-area: square_root; }
+#exp { grid-area: exp; }
+#exp2 { grid-area: exp2; }
+#lg { grid-area: lg; }
+#ln { grid-area: ln; }
 
 button {
     width: 60px;
@@ -132,7 +133,7 @@ button:active {
     background-color: rgb(36, 41, 49);
     width: auto;
     max-width: 400px;
-    padding: 30px 10px 30px 10px;
+    padding: 30px 10px 20px 10px;
     border-radius: 25px;
 }
 
@@ -161,7 +162,7 @@ button:active {
 p {
     margin: 0;
     font-size: 30px;
-    max-width: 200px;
+    max-width: 270px;
     word-wrap: break-word;
     text-align: end;
 }
