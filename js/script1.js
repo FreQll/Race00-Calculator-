@@ -505,6 +505,8 @@ class Calculator {
         this.memory = 0;
         document.getElementById("memory_area").innerText = this.memory;
         this.buttonM.disabled = true;
+        let container = document.getElementById('memory-div');
+        container.style.display = 'none';
     }
 }
 
