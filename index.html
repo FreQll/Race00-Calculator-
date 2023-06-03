@@ -5,6 +5,10 @@
     <title>Calculator</title>
     <meta name="description" content="Race01. Calculator">
     <link rel = "stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
@@ -18,9 +22,24 @@
             <div class="buttons_div">
                 <div class="numbers_div">
                     <div onclick="calculator.clear()" id="clear" class="button funcs"><button>C</button></div>
-                    <div onclick="calculator.appendSign()" id="sign" class="button funcs"><button>&#177;</button></div>
-                    <div onclick="calculator.appendPercent()" id="percent" class="button funcs"><button>%</button></div>
-                    <div onclick="calculator.appendDelete()" id="delete" class="button"><button>DEL</button></div>
+                    <div onclick="calculator.factorial()" id="factorial" class="button funcs"><button>x!</button></div>
+                    <div onclick="calculator.squareRoot()" id="square_root" class="button funcs"><button>√</button></div>
+                    <div onclick="calculator.appendSign()" id="sign" class="button funcs"><button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-slash-minus" viewBox="0 0 16 16">
+                            <path d="m1.854 14.854 13-13a.5.5 0 0 0-.708-.708l-13 13a.5.5 0 0 0 .708.708ZM4 1a.5.5 0 0 1 .5.5v2h2a.5.5 0 0 1 0 1h-2v2a.5.5 0 0 1-1 0v-2h-2a.5.5 0 0 1 0-1h2v-2A.5.5 0 0 1 4 1Zm5 11a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5A.5.5 0 0 1 9 12Z"/>
+                        </svg>
+                    </button></div>
+                    <div onclick="calculator.appendPercent()" id="percent" class="button funcs"><button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-percent" viewBox="0 0 16 16">
+                            <path d="M13.442 2.558a.625.625 0 0 1 0 .884l-10 10a.625.625 0 1 1-.884-.884l10-10a.625.625 0 0 1 .884 0zM4.5 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5zm7 6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
+                        </svg>
+                    </button></div>
+                    <div onclick="calculator.appendDelete()" id="delete" class="button funcs"><button>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-backspace" viewBox="0 0 16 16">
+                            <path d="M5.83 5.146a.5.5 0 0 0 0 .708L7.975 8l-2.147 2.146a.5.5 0 0 0 .707.708l2.147-2.147 2.146 2.147a.5.5 0 0 0 .707-.708L9.39 8l2.146-2.146a.5.5 0 0 0-.707-.708L8.683 7.293 6.536 5.146a.5.5 0 0 0-.707 0z"/>
+                            <path d="M13.683 1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-7.08a2 2 0 0 1-1.519-.698L.241 8.65a1 1 0 0 1 0-1.302L5.084 1.7A2 2 0 0 1 6.603 1h7.08zm-7.08 1a1 1 0 0 0-.76.35L1 8l4.844 5.65a1 1 0 0 0 .759.35h7.08a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-7.08z"/>
+                        </svg>
+                    </button></div>
                     <div onclick="calculator.appendNumber(0)" id="number_0" class="button zero"><button>0</button></div>
                     <div onclick="calculator.appendNumber(1)" id="number_1" class="button"><button>1</button></div>
                     <div onclick="calculator.appendNumber(2)" id="number_2" class="button"><button>2</button></div>

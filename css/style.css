@@ -5,12 +5,24 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-
-    background: linear-gradient(to right, #2b3036, #252b33, #30373f);
+    font-family: 'Work Sans', sans-serif;
+    /* background: linear-gradient(-45deg, rgba(35, 39, 44, 0.92), rgba(37, 43, 51, 0.82), rgba(40, 45, 52, 0.878)); */
+    background: linear-gradient(-45deg, rgba(35, 39, 44, 0.95), rgba(35, 39, 44, 0.9), rgba(35, 39, 44, 0.88));
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
 
 }
+
+::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    cursor: pointer;
+  }
 
 @keyframes move-it {
     0% {
@@ -26,7 +38,7 @@ body {
     height: 100px;
     padding: 10px;
     margin-right: 10px;
-    margin-left: 10px;
+
     display: flex;
     flex-direction: column;
     align-items: end;
@@ -38,20 +50,20 @@ body {
 }
 
 .numbers_div {
-    height: 400px;
-    max-height: 400px;
+    height: 300px;
+    max-height: 300px;
+    margin-top: 15px;
     width: 100%;
     display: grid;
     gap: 5px;
-    grid-template-columns: repeat(4, 60px);
-    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 60px);
+    grid-template-rows: repeat(4, 60px);
     grid-template-areas: 
-        "factorial squareRoot exp ."
-        "clear percent delete division"
-        "number_7 number_8 number_9 multiply_"
-        "number_4 number_5 number_6 minus"
-        "number_1 number_2 number_3 plus"
-        "sign number_0 point equal";
+        "clear factorial percent delete division"
+        "square_root number_7 number_8 number_9 multiply_"
+        ". number_4 number_5 number_6 minus"
+        ". number_1 number_2 number_3 plus"
+        ". sign number_0 point equal";
 }
 
 #number_0 { grid-area: number_0; }
@@ -75,8 +87,7 @@ body {
 #sign {grid-area: sign;}
 #delete { grid-area: delete; }
 #factorial { grid-area: factorial; }
-#squareRoot { grid-area: squareRoot; }
-#exp { grid-area: exp; }
+#square_root { grid-area: square_root; }
 
 button {
     width: 60px;
@@ -118,7 +129,7 @@ button:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(27,31,37);
+    background-color: rgb(36, 41, 49);
     width: auto;
     max-width: 400px;
     padding: 30px 10px 30px 10px;

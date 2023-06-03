@@ -3,8 +3,7 @@ class Calculator {
 
     constructor() {
         this.string = '0';
-        this.expression = [];
-        this.numberStr = '0';
+        this.expression = [0];
         this.result = 0;
         this.toClear = false;
 
@@ -13,159 +12,95 @@ class Calculator {
     }
 
     appendNumber(number) {
-        if (this.toClear) this.clear(); //очищение после предыдущего результата и вводом нового выражения
+        if (this.toClear) {
+            this.clear(); //очищение после предыдущего результата и вводом нового выражения
+            this.expression = [];
+        }
         this.toClear = false;
 
-        if (this.string.length == 1 && this.string[0] == '0') this.string = '';
 
-        if (this.expression.length == 1 && this.expression[0] == '0') this.expression.pop();
 
-        //if (this.numberStr[0] == '0' && !(this.string.includes('.'))) return; //игнорирование чисел типа 01
+        console.log(this.expression)
+        if (this.expression.length == 1 && (this.expression[0] == '0')) this.expression.pop();
 
-        if (this.expression[this.expression.length - 1] == '-') { //замена -num на + -num
-            this.expression.pop();
-            this.expression.push('+');
-            this.numberStr += '-';
-        }
 
-        if (this.expression.length > 2 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
-            this.string = this.string.split() + number.toString();
-            number = this.expression[this.expression.length - 1] + number;
+        if (this.expression.length > 0 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            number = this.expression[this.expression.length - 1].toString() + number.toString();
             this.expression.pop();
         }
-        else this.string += number.toString();
 
-        if (this.string.length > 13) {
-            document.getElementById("result_area").style.fontSize = '20px';
-        }
-        else document.getElementById("result_area").style.fontSize = '30px';
-        
-        document.getElementById("result_area").innerText = this.string;
-        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
-
-        this.numberStr += number;
-        //console.log()
+        this.expression.push(number);
+        this.expressionToString()
     }
 
     appendOperation(operator) {
-        if (this.numberStr[this.numberStr.length - 1] == '.') this.return; //для случаев ввода чисел типа 1.
-        if (this.numberStr.toString() != '') this.expression.push(this.numberStr);
-        this.numberStr = '';
-
-        /*if (this.result != 0 && this.expression.length < 2) {
-            document.getElementById("expression_string").innerText = document.getElementById("expression_string").textContent + ' ' + this.result;
-            this.expression.push(this.result);
-        }*/
         this.toClear = false;
-
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) { //если оператор уже введен
             this.expression.pop();
             this.string = this.string.substring(0, this.string.length - 2);
-            //this.string = this.expression.join(' ');
         }
 
-        this.string += ' ' + operator + ' ';
-        document.getElementById("result_area").innerText = this.string;
-
         this.expression.push(operator);
-
-        console.log(this.expression);
-
-        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
+        this.expressionToString()
     }
 
     appendPoint() {
         if (this.toClear) this.clear(); //очищение после предыдущего результата и вводом нового выражения
         this.toClear = false;
-        if (this.numberStr.toString().includes('.')) return;
+        
+        if (this.expression.length == 0) this.expression.push(this.result)
+        if (this.expression[this.expression.length - 1].toString().includes('.')) return;
 
-        if (this.numberStr == '') {
-            this.string += '0';
-            this.numberStr += '0';
+        let number = '';
+        if (this.expression.length > 0 && !this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
+            number = this.expression[this.expression.length - 1].toString() + '.';
+            this.expression.pop();
         }
-        this.numberStr += '.';
-        this.string += '.';
+
         document.getElementById("result_area").innerText = this.string;
-
-        console.log(this.expression);
-
-        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
-
+        this.expression.push(number);
+        this.expressionToString();
     }
 
     appendPercent() {
-        if (this.numberStr != '') this.expression.push(this.numberStr);
-
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
-        let num = this.numberStr.toString();
-        if (num[0] == '-') num = num.substring(1, num.length);
+        let num = this.expression[this.expression.length - 1];
         let res = num / 100;
 
-        this.numberStr = this.numberStr.toString();
-        if (this.numberStr[0] == '-') this.numberStr = '-' + res;
-        else this.numberStr = res;
-
         this.expression.pop();
+        this.expression.push(res);
+        this.expressionToString();
 
-        this.string = this.string.toString();
-        while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
-            this.string = this.string.toString().substring(0, this.string.length - 1);
-        }
-
-        this.string += ' ' + res;
-        this.result = 0;
-
-        document.getElementById("result_area").innerText = this.string;
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
-
     appendSign() {
-        if (this.numberStr == '' || this.numberStr == 0) return;
-
-        console.log(this.string)
-        if (!this.string.includes('+') && !this.string.includes('-') && !this.string.includes('/') && !this.string.includes('*')) {
-            console.log(this.string)
-        
-            this.numberStr *= -1;
-            this.string = this.numberStr;
-        }
-        else if (this.numberStr < 0) {
-            this.numberStr *= -1;
-            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
-                this.string = this.string.toString().substring(0, this.string.length - 1);
+        if (this.expression.length == 1) {
+            if (this.expression[0] == 0) return;
+            else {
+                let temp = this.expression[0];
+                this.expression.pop();
+                this.expression.push('0');
+                this.expression.push('-')
+                this.expression.push(temp);
             }
-            this.string = this.string.toString().substring(0, this.string.length - 1);
-            this.string += ' + ' + this.numberStr;
         }
-        else if (this.numberStr > 0) {
-            while(!this.operatorsArr.includes(this.string[this.string.length - 1]) && this.string.length > 0) {
-                this.string = this.string.toString().substring(0, this.string.length - 1);
-            }
-            this.string = this.string.toString().substring(0, this.string.length - 1);
-            console.log(this.string)
-            this.string += '- ' + this.numberStr;
-            this.numberStr *= -1;
+        else if (this.expression[this.expression.length - 2] == '-') {
+            this.expression[this.expression.length - 2] = '+'
+        }
+        else if (this.expression[this.expression.length - 2] == '+') {
+            this.expression[this.expression.length - 2] = '-'
         }
 
-        document.getElementById("result_area").innerText = this.string;
-        console.log(this.expression)
-
-        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
+        this.expressionToString();
     }
 
     appendEqual() {
-        console.log(this.expression)
-        if (this.expression.length < 2) return; //проверка выражения на одно число
-        
-        if (this.numberStr == '' && this.expression.length < 3) return; //проверка на выражение типа 5/
-        
-        if (this.numberStr != '') this.expression.push(this.numberStr);
+        if (this.expression.length < 3) return; //проверка выражения на одно число
         
         if (this.expression[this.expression.length - 2] == '/') //деление на ноль
             if (this.expression[this.expression.length - 1] == 0) {
-                this.expression.pop();
                 return;
             }
 
@@ -177,47 +112,36 @@ class Calculator {
         else document.getElementById("expression_string").style.fontSize = '30px';
 
         this.toClear = true;
-        this.expression = [];
-        this.numberStr = this.result;
 
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     appendDelete() {
-        if (this.numberStr != '') this.expression.push(this.numberStr);
+        console.log(this.expression);
+        if (this.expression.length == 1) {
+            if (this.expression[0] == '0') return;
+            else if (this.expression[0].length == 1) {
+                this.expression[0] = '0';
+                this.expressionToString();
+                return;
+            }
+        }
 
-        let lastNum = '';
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) {
-            console.log(this.expression);
             this.expression.pop();
-            this.string = this.string.substring(0, this.string.length - 3);
         }
         else {
-            lastNum = this.expression[this.expression.length - 1];
+            let lastNum = this.expression[this.expression.length - 1];
+            let newNum = lastNum.toString().substring(0, lastNum.length - 1);
+
             this.expression.pop();
-            if (this.expression.length == 0) this.expression.push('0');
-
-            lastNum = lastNum.toString().substring(0, lastNum.toString().length - 1)
-
-            if (lastNum == '-') lastNum = '';
-            //this.numberStr = this.numberStr.substring(0, this.numberStr.length - 1);
-            this.string = this.string.substring(0, this.string.length - 1);
-            //this.expression.push(lastNum);
+            if (newNum != '') this.expression.push(newNum);
         }
 
-        if (this.string.length == 0) this.string = '0';
-        
-        if (this.string.length > 13) document.getElementById("result_area").style.fontSize = '20px';
-        else document.getElementById("result_area").style.fontSize = '30px';
-        
-        this.numberStr = lastNum;
-        document.getElementById("result_area").innerText = this.string;
-
-        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
+        this.expressionToString();
     }
 
     clear() {
-        this.expression = [];
         document.getElementById("result_area").innerText = '0';
 
         if (this.string == "0") document.getElementById("expression_string").innerText = ""; //очищение истории
@@ -230,6 +154,7 @@ class Calculator {
         this.result = 0;
         this.string = "0";
         this.numberStr = "0"
+        this.expression = [];
     }
 
     updateResult() {
@@ -238,7 +163,6 @@ class Calculator {
         
         let array = this.expression;
         let tempRes = parseFloat(array[0]);
-        let operator = "";
 
         console.log(this.expression);
 
@@ -262,6 +186,11 @@ class Calculator {
                 this.calculate("+");
                 console.log(this.expression);
             }
+
+            if (this.expression.indexOf("-") != -1) {
+                this.calculate("-");
+                console.log(this.expression);
+            }
         }
 
         tempRes = this.expression[0];
@@ -271,9 +200,8 @@ class Calculator {
         this.string = tempRes.toString();
         this.expression = [];
         this.numberStr = "";
-        this.expression.push(tempRes);
+        this.expression.push(tempRes.toString());
     }
-
 
     calculate(operator) {
 
@@ -301,41 +229,59 @@ class Calculator {
     expressionToString() {
         this.string = '';
         for (let i = 0; i < this.expression.length; i++) {
-            const element = this.expression[i];
-
-            if (parseFloat(this.expression[i + 1]) < 0) this.string += ' - ';
-            else if (parseFloat(element) < 0) {
-                let num = parseFloat(element) * (-1);
-                this.string += num.toString;
-            }
-            else this.string += element;
+            const element = this.expression[i].toString();
+            this.string += element;
         }
         document.getElementById("result_area").innerText = this.string;
 
+        if (this.string.length > 13) {
+            document.getElementById("result_area").style.fontSize = '20px';
+        }
+        else document.getElementById("result_area").style.fontSize = '30px';
+
+        document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
 
     //////////////CREATIVE
 
     factorial() {
-        if (this.numberStr == '' || parseFloat(this.numberStr) < 0) return;
-        this.expression.push(this.numberStr);
-
+        if (this.expression[this.expression.length - 1] < 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        
         let res = 1;
+        let num = parseFloat(this.expression[this.expression.length - 1]);
 
-        for (let i = 1; i <= parseFloat(this.numberStr); i++) {
-            res *= i;
+        if (Math.floor(num) - num != 0) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
         }
 
-        this.numberStr = res;
-
+        for (let i = 1; i <= num; i++) {
+            res *= i;
+        }
+        
         this.expression.pop();
         this.expression.push(res);
 
-        console.log(this.expression);
         this.expressionToString();
-        this.expression.pop();
     }
 
+    squareRoot() {
+        if (this.expression[this.expression.length - 1] <= 0
+            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        let res = Math.sqrt(this.expression[this.expression.length - 1]);
+
+        this.expression.pop();
+        this.expression.push(res);
+        
+        console.log(this.expression);
+        this.expressionToString();
+    }
+
+    exponentiation() {
+
+    }
 }
 
 calculator = new Calculator();
