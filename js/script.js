@@ -270,4 +270,3 @@ class Calculator {
 }
 
 calculator = new Calculator();
-
