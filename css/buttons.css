@@ -1,0 +1,51 @@
+.buttons_div {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  border-radius: 25%;
+  color: white;
+  background-color: rgb(46, 49, 59);
+  user-select: none;
+  border: 3px outset rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s all;
+}
+
+button:hover {
+  opacity: 90%;
+}
+
+button:active {
+  border: 1px outset rgba(0, 0, 0, 0.25);
+}
+
+.operator > button {
+  background-color: rgb(232, 138, 10);
+  font-weight: bold;
+  font-size: 20px;
+  border: 3px outset rgba(255, 255, 255, 0.25);
+}
+
+.operator > button:active {
+  border: 1px outset rgba(255, 255, 255, 0.25);
+}
+
+.funcs > button {
+  background-color: rgb(77, 81, 93);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.metrics-container > div > button {
+  margin-bottom: 5px;
+}

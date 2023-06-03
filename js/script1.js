@@ -482,9 +482,12 @@ class Calculator {
 
     showM() {
         let container = document.getElementById('memory-div');
-        if (container.style.display == 'none')
+        if (container.style.display == 'none'){
             container.style.display = 'block';
-        else container.style.display = 'none';
+        }
+        else {
+            container.style.display = 'none';
+        }
     }
     
     plusM() {
