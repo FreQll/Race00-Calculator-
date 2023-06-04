@@ -196,14 +196,19 @@ class Calculator {
                 continue;
             }
 
-            if (this.expression.indexOf("+") != -1) {
+            let indPlus = this.expression.indexOf("+");
+            let indMin = this.expression.indexOf("-");
+
+            if ((indPlus < indMin && indPlus != -1) || (indPlus != -1 && indMin == -1)) {
                 this.calculate("+");
                 console.log(this.expression);
+                continue;
             }
 
-            if (this.expression.indexOf("-") != -1) {
+            if ((indMin < indPlus && indMin != -1) || (indMin != -1 && indPlus == -1)) {
                 this.calculate("-");
                 console.log(this.expression);
+                continue;
             }
         }
 
@@ -438,7 +443,7 @@ class Calculator {
         if (this.expression[this.expression.length - 1] <= 0
             || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
-        if (! parseInt(this.expression[this.expression.length - 1])) {
+        if (this.expression[this.expression.length - 1].includes('.')) {
             document.getElementById("result_area").innerText = "Number must be integer!";
             return;
         }
@@ -452,6 +457,14 @@ class Calculator {
     }
 
     dec() {
+        if (this.expression[this.expression.length - 1].includes('.')) {
+            document.getElementById("result_area").innerText = "Number must be integer!";
+            return;
+        }
+        if (this.expression[this.expression.length - 1].includes('-')) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let num = this.expression[this.expression.length - 1];
         let dec = parseInt(num, 16);
@@ -465,7 +478,7 @@ class Calculator {
         if (this.expression[this.expression.length - 1] <= 0
             || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
-        if (! parseInt(this.expression[this.expression.length - 1])) {
+        if (this.expression[this.expression.length - 1].includes('.')) {
             document.getElementById("result_area").innerText = "Number must be integer!";
             return;
         }
