@@ -117,6 +117,8 @@ class Calculator {
         console.log(this.expression);
         
         if (this.expression.length < 3) return; //проверка выражения на одно число
+
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
         
         if (this.expression[this.expression.length - 2] == '/') //деление на ноль
             if (this.expression[this.expression.length - 1] == 0) {
@@ -131,6 +133,11 @@ class Calculator {
         else document.getElementById("expression_string").style.fontSize = '30px';
 
         this.toClear = true;
+
+        if (this.string.length > 13) {
+            document.getElementById("result_area").style.fontSize = '20px';
+        }
+        else document.getElementById("result_area").style.fontSize = '30px';
 
         document.getElementById("result_div").scrollTop = document.getElementById("result_div").scrollHeight;
     }
