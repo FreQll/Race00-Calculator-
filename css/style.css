@@ -204,3 +204,7 @@
 .metrics-container.show {
   opacity: 1;
 }
+
+#memory_area {
+  margin: 10px 0;
+}

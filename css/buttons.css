@@ -49,3 +49,15 @@ button:disabled {
 .metrics-container > div > button {
   margin-bottom: 5px;
 }
+
+#memory-btns {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.memory_menu-btn {
+  background-color: transparent;
+  width: 47px;
+  height: 40px;
+  font-size: 13px;
+}

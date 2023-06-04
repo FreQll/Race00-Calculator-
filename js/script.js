@@ -9,7 +9,9 @@ class Calculator {
         this.memory = 0;
 
         this.buttonM = document.getElementById('btnM');
-        this.buttonM.disabled = true;
+        this.buttonMR = document.getElementById('btnMR');
+
+        this.menuOpen = false;
 
         document.getElementById("result_area").innerText = '0';
         document.getElementById("expression_string").innerText = '';
@@ -480,33 +482,89 @@ class Calculator {
 
     showM() {
         let container = document.getElementById('memory-div');
-        if (container.style.display == 'none')
+        if (container.style.display == 'none'){
             container.style.display = 'block';
-        else container.style.display = 'none';
+        }
+        else {
+            container.style.display = 'none';
+        }
     }
     
     plusM() {
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
         this.buttonM.disabled = false;
+        this.buttonMR.disabled = false;
+
         this.memory += parseFloat(this.expression[this.expression.length - 1]);
         document.getElementById("memory_area").innerText = this.memory;
+
+        if (this.memory.toString().length > 13) {
+            document.getElementById("memory_area").style.fontSize = '20px';
+        }
+        else document.getElementById("memory_area").style.fontSize = '25px';
     }
 
     minusM() {
         if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
 
         this.buttonM.disabled = false;
+        this.buttonMR.disabled = false;
+
         this.memory -= parseFloat(this.expression[this.expression.length - 1]);
         document.getElementById("memory_area").innerText = this.memory;
+
+        if (this.memory.toString().length > 13) {
+            document.getElementById("memory_area").style.fontSize = '20px';
+        }
+        else document.getElementById("memory_area").style.fontSize = '25px';
     }
 
     MC() {
         this.memory = 0;
         document.getElementById("memory_area").innerText = this.memory;
+
         this.buttonM.disabled = true;
-        let container = document.getElementById('memory-div');
-        container.style.display = 'none';
+        this.buttonMR.disabled = true;
+        
+        document.getElementById("memory_area").style.fontSize = '25px';
+    }
+
+    MR() {
+        if (this.memory == '0') return;
+
+        let memoryVal = this.memory;
+
+        if (!this.operatorsArr.includes(this.expression[this.expression.length - 1])) this.expression.pop();
+        
+        if (parseFloat(memoryVal) < 0) {
+            if (this.expression.length == 0) this.expression.push('0');
+            this.expression.push('-');
+            memoryVal *= -1;
+        }
+
+        this.expression.push(memoryVal);
+        this.expressionToString();
+    }
+
+    openMetrics() {
+        let metrics_div = document.getElementById("metrics");
+        let buttons = document.querySelectorAll(".metrics");
+
+        if (!this.menuOpen) {
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.visibility = "visible";
+            }
+            this.menuOpen = true;
+            metrics_div.classList.add('show');
+        }
+        else {
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.visibility = "hidden";
+            }
+            this.menuOpen = false;
+            metrics_div.classList.remove('show');
+        }
     }
 }
 
