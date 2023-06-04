@@ -81,8 +81,15 @@ class Calculator {
     }
 
     appendSign() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        
         if (this.expression.length == 1) {
             if (this.expression[0] == 0) return;
+            let num = parseFloat(this.expression[0]);
+            if (num < 0) {
+                num *= -1;
+                this.expression[0] = num.toString();
+            }
             else {
                 let temp = this.expression[0];
                 this.expression.pop();
@@ -96,6 +103,11 @@ class Calculator {
         }
         else if (this.expression[this.expression.length - 2] == '+') {
             this.expression[this.expression.length - 2] = '-'
+        }
+        else {
+            let num = parseFloat(this.expression[this.expression.length - 1]);
+            num *= -1;
+            this.expression[this.expression.length - 1] = num.toString();
         }
 
         this.expressionToString();
@@ -312,6 +324,8 @@ class Calculator {
     }
 
     exponentiation2() {
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
         let res = this.expression[this.expression.length - 1] ** 2;
         this.expression.pop();
         this.expression.push(res.toString());
@@ -320,8 +334,12 @@ class Calculator {
     }
 
     lg() {
-        if (this.expression[this.expression.length - 1] <= 0
-        || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] <= 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = Math.log10(this.expression[this.expression.length - 1]);
 
@@ -332,8 +350,12 @@ class Calculator {
     }
 
     ln() {
-        if (this.expression[this.expression.length - 1] <= 0
-        || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] <= 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = Math.log(this.expression[this.expression.length - 1]);
 
@@ -346,8 +368,12 @@ class Calculator {
     ///////////LENGHT
 
     lenghtSm() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] * 100
         
@@ -357,8 +383,12 @@ class Calculator {
     }
 
     squareSm() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] * 100
         res *= res;
@@ -369,8 +399,12 @@ class Calculator {
     }
 
     lenghtKm() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] / 1000
         
@@ -380,8 +414,12 @@ class Calculator {
     }
 
     squareKm() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] / 1000
         res *= res;
@@ -392,8 +430,12 @@ class Calculator {
     }
 
     hectare() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] / 10000
         
@@ -405,8 +447,12 @@ class Calculator {
     //////////WEIGHT
 
     weightMg() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] * 1000
         
@@ -416,8 +462,12 @@ class Calculator {
     }
 
     weightKg() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] / 1000
         
@@ -427,8 +477,12 @@ class Calculator {
     }
 
     weightT() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] < 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         let res = this.expression[this.expression.length - 1] / 1000000
         
@@ -440,8 +494,12 @@ class Calculator {
     /////////PROGRAMMER 
 
     hex() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] <= 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         if (this.expression[this.expression.length - 1].includes('.')) {
             document.getElementById("result_area").innerText = "Number must be integer!";
@@ -475,8 +533,12 @@ class Calculator {
     }
 
     bin() {
-        if (this.expression[this.expression.length - 1] <= 0
-            || this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+        if (this.operatorsArr.includes(this.expression[this.expression.length - 1])) return;
+
+        if (this.expression[this.expression.length - 1] <= 0) {
+            document.getElementById("result_area").innerText = "Number must be positive!";
+            return;
+        }
 
         if (this.expression[this.expression.length - 1].includes('.')) {
             document.getElementById("result_area").innerText = "Number must be integer!";
